@@ -17,12 +17,12 @@ if [ -f $ENV_DIR/PROJECT_PATH ]; then
 		TMP_DIR=`mktemp -d $CACHE_DIR/subdirXXXXX`
 		echo "       created tmp dir: $TMP_DIR"
 		echo "       moving working dir: $PROJECT_PATH to $TMP_DIR"
-		cp -R $BUILD_DIR/$PROJECT_PATH $TMP_DIR/
+		cp -R $BUILD_DIR/$PROJECT_PATH/. $TMP_DIR/
 		if [ -f $ENV_DIR/LIB_PATH ]; then
 			LIB_PATH=`cat $ENV_DIR/LIB_PATH`
 			if [ -d $BUILD_DIR/$LIB_PATH ]; then
 				echo "-----> Local module in $LIB_PATH"
-				cp -R $BUILD_DIR/$LIB_PATH $TMP_DIR/
+				cp -R $BUILD_DIR/$LIB_PATH $BUILD_DIR/..
 			fi
 		fi
 	 	echo "       cleaning build dir $BUILD_DIR"
