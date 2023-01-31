@@ -18,17 +18,30 @@ if [ -f $ENV_DIR/PROJECT_PATH ]; then
 		echo "       created tmp dir: $TMP_DIR"
 		echo "       moving working dir: $PROJECT_PATH to $TMP_DIR"
 		cp -R $BUILD_DIR/$PROJECT_PATH/. $TMP_DIR/
+
+		# copy local modules to project folder
+		for LOCAL_MODULE in $ENV_DIR/LOCAL_MODULE*
+		do
+			LOCAL_MODULE_PATH=`cat $LOCAL_MODULE`
+			if [ -d $BUILD_DIR/$LOCAL_MODULE_PATH ]; then
+				echo "-----> Local module in $BUILD_DIR/$LOCAL_MODULE_PATH"
+				mkdir $TMP_DIR/.local-modules
+				cp -R $BUILD_DIR/$LOCAL_MODULE_PATH $TMP_DIR/.local-modules/
+			else
+				echo "-----> (Warning) Local module not found in $BUILD_DIR/$LOCAL_MODULE_PATH"
+			fi
+		done
+		
 	 	echo "       cleaning build dir $BUILD_DIR"
 		rm -rf $BUILD_DIR/*
 		echo "       copying preserved work dir from cache $TMP_DIR to build dir $BUILD_DIR"
 		cp -R $TMP_DIR/. $BUILD_DIR/
 		echo "       cleaning tmp dir $TMP_DIR"
 		rm -rf $TMP_DIR
+		touch $BUILD_DIR/.heroku-ci
 		exit 0
 	fi
 fi
 
 echo "PROJECT_PATH is undefined"
 exit 1
-
-
