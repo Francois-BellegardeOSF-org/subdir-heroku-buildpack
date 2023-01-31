@@ -22,7 +22,8 @@ if [ -f $ENV_DIR/PROJECT_PATH ]; then
 			LIB_PATH=`cat $ENV_DIR/LIB_PATH`
 			if [ -d $BUILD_DIR/$LIB_PATH ]; then
 				echo "-----> Local module in $LIB_PATH"
-				cp -R $BUILD_DIR/$LIB_PATH $BUILD_DIR/..
+				mkdir $TMP_DIR/.local-modules
+				cp -R $BUILD_DIR/$LIB_PATH $TMP_DIR/.local-modules/
 			fi
 		fi
 	 	echo "       cleaning build dir $BUILD_DIR"
