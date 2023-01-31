@@ -27,6 +27,8 @@ if [ -f $ENV_DIR/PROJECT_PATH ]; then
 				echo "-----> Local module in $BUILD_DIR/$LOCAL_MODULE_PATH"
 				mkdir $TMP_DIR/.local-modules
 				cp -R $BUILD_DIR/$LOCAL_MODULE_PATH $TMP_DIR/.local-modules/
+			else
+				echo "-----> (Warning) Local module not found in $BUILD_DIR/$LOCAL_MODULE_PATH"
 			fi
 		done
 		
